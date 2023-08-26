@@ -63,7 +63,8 @@ textarea:focus {
 /* start comment */
 .comment {
 }
-.comment .comment-prototype {
+.comment .comment-prototype,
+.write-prototype {
   border-radius: 5px;
   background-color: var(--Very-light-gray);
   display: flex;
@@ -171,4 +172,31 @@ textarea:focus {
   width: 85%;
 }
 /* end reply section  */
+/* start  write elements */
+.write-prototype {
+  align-items: self-start;
+}
+.write-prototype .myPhoto {
+  width: 5rem;
+}
+.write-prototype textarea {
+  width: 100%;
+  height: 8rem;
+  font-size: 1.5rem;
+  padding: 1.2rem;
+  resize: none;
+  border-radius: 5px;
+  border-color: var(--Moderate-blue);
+}
+.write-prototype .sendBtn {
+  text-transform: uppercase;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  color: white;
+  background-color: var(--Moderate-blue);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+/* end write elements */
 /* end components */
