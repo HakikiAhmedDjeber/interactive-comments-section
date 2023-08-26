@@ -177,7 +177,7 @@ textarea:focus {
   align-items: self-start;
 }
 .write-prototype .myPhoto {
-  width: 5rem;
+  width: 3rem;
 }
 .write-prototype textarea {
   width: 100%;
@@ -197,6 +197,17 @@ textarea:focus {
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+}
+@media (max-width: 375px) {
+  .write-prototype {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .write-prototype textarea {
+    font-size: 1.2rem;
+    order: -1;
+  }
 }
 /* end write elements */
 /* end components */
