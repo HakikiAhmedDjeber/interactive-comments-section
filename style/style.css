@@ -24,7 +24,7 @@
 }
 .container {
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 15px;
 }
 html {
   scroll-behavior: smooth;
@@ -32,6 +32,7 @@ html {
 body {
   transition: 1s all;
   font-family: "Rubik", sans-serif;
+  background-color: var(--Light-gray);
 }
 ul {
   list-style-type: none;
@@ -51,19 +52,123 @@ textarea:focus {
     width: 750px;
   }
 }
-/* medium*/
+/* large */
 @media (min-width: 992px) {
   .container {
     width: 970px;
   }
 }
-/*large*/
-@media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-  }
-}
 /* end global rules */
 /* start components */
-
+/* start comment */
+.comment {
+}
+.comment .comment-prototype {
+  border-radius: 5px;
+  background-color: var(--Very-light-gray);
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+.comment .score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3px;
+  background-color: var(--Light-gray);
+  font-weight: bold;
+  border-radius: 3px;
+  gap: 4px;
+  font-size: 1.6rem;
+  height: fit-content;
+  color: var(--Moderate-blue);
+  width: 3rem;
+}
+.score .up,
+.score .down {
+  cursor: pointer;
+  color: var(--Grayish-Blue);
+}
+.score .up:hover,
+.score .down:hover {
+  color: var(--Moderate-blue);
+}
+.score .score-value {
+}
+.comment-prototype .text-content {
+}
+.text-content .comment-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.comment-head .info {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
+}
+.info .profile {
+  width: 3rem;
+}
+.info .date {
+  font-weight: 400;
+  color: var(--Grayish-Blue);
+}
+.comment-head .buttons {
+}
+.buttons .reply {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.reply img {
+}
+.reply span {
+  font-size: 1.4rem;
+  color: var(--Moderate-blue);
+}
+.comment .content {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: var(--Grayish-Blue);
+}
+@media (max-width: 375px) {
+  .comment .comment-prototype {
+    flex-direction: column-reverse;
+    position: relative;
+  }
+  .comment .score {
+    flex-direction: row;
+    justify-content: center;
+    width: 8rem;
+    gap: 1.2rem;
+  }
+  .comment-head .buttons {
+    position: absolute;
+    bottom: 1.8rem;
+    right: 1.5rem;
+  }
+}
+/* end comment */
+/* start reply section */
+.replys-section {
+  display: flex;
+}
+.replys-section .reply-line {
+  width: 15%;
+}
+.reply-line div {
+  margin: 0 auto;
+  height: 100%;
+  width: 1px;
+  background-color: hsl(211deg 10% 45% / 48%);
+}
+.replys-section .comment-replys {
+  width: 85%;
+}
+/* end reply section  */
 /* end components */
