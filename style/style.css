@@ -119,17 +119,30 @@ textarea:focus {
   color: var(--Grayish-Blue);
 }
 .comment-head .buttons {
+  display: flex;
+  gap: 2rem;
 }
-.buttons .reply {
+.buttons .btn {
   display: flex;
   align-items: center;
   gap: 2px;
 }
-.reply img {
-}
-.reply span {
+.btn span {
   font-size: 1.4rem;
+  font-weight: 500;
+}
+.reply span,
+.edit span {
   color: var(--Moderate-blue);
+}
+.delete span {
+  color: var(--Soft-Red);
+}
+.your-comment .you {
+  padding: 1px 2px;
+  color: white;
+  background-color: var(--Moderate-blue);
+  font-weight: 500;
 }
 .comment .content {
   margin-top: 1.5rem;
@@ -171,6 +184,17 @@ textarea:focus {
 .replys-section .comment-replys {
   width: 85%;
 }
+.replyTo {
+  position: relative;
+  color: var(--Moderate-blue);
+  font-weight: 500;
+  padding-left: 1rem;
+}
+.replyTo::before {
+  position: absolute;
+  content: "@";
+  transform: translateX(-100%);
+}
 /* end reply section  */
 /* start  write elements */
 .write-prototype {
@@ -210,4 +234,5 @@ textarea:focus {
   }
 }
 /* end write elements */
+
 /* end components */
