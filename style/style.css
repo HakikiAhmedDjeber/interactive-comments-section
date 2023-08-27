@@ -173,10 +173,14 @@ textarea:focus {
   display: flex;
 }
 .replys-section .reply-line {
+  position: relative;
   width: 15%;
 }
-.reply-line div {
-  margin: 0 auto;
+.reply-line::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  transform: translateX(-50%);
   height: 100%;
   width: 1px;
   background-color: hsl(211deg 10% 45% / 48%);
