@@ -1,23 +1,26 @@
 // verify if the local storage has data if not set data from json file to it
-if (localStorage.getItem("data") == (null || "" || "{}")) {
-  // fetch data from local json file
-  fetch("../data.json")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("show the data after fetch if from the json file");
-      console.log(data);
-      // set the data as json in localstorage
-      data = JSON.stringify(data);
-      localStorage.setItem("data", data);
-    });
+async function getData() {
+  if (localStorage.length == 0) {
+    // fetch data from local json file
+    await fetch("../data.json")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("show the data after fetch if from the json file");
+        console.log(data);
+        // set the data as json in localstorage
+        data = JSON.stringify(data);
+        localStorage.setItem("data", data);
+      });
+  }
+  // get the data from localstroge and transfrom it into object
+  let data = JSON.parse(localStorage.getItem("data"));
+  console.log("show the data form the local storage");
+  console.log(data);
 }
-// get the data from localstroge and transfrom it into object
-let data = JSON.parse(localStorage.getItem("data"));
-console.log("show the data form the local storage");
-console.log(data);
+getData();
 // comment class
 class Comment {
-  constructor(id, content, time, score, img, name, replys) {
+  constructor(id, content, time, score, img, name, replys, currentUser) {
     this.id = id;
     this.content = content;
     this.time = time;
@@ -25,6 +28,7 @@ class Comment {
     this.img = img;
     this.name = name;
     this.replys = replys;
+    this.currentUser = currentUser;
     // create a comment
     const comment = document.createElement("div");
     comment.setAttribute("class", "comment");
@@ -80,12 +84,12 @@ class Comment {
     // reply
     // edite
     const edite = document.createElement("a");
-    edite.classList.add("edite");
+    edite.classList.add("edit");
     edite.classList.add("btn");
     const editeIcon = document.createElement("img");
     editeIcon.src = "./images/icon-edit.svg";
     const editeText = document.createElement("span");
-    editeText.innerText = "edite";
+    editeText.innerText = "Edite";
     // edite
     // delet
     const delet = document.createElement("a");
@@ -94,7 +98,7 @@ class Comment {
     const deleteIcon = document.createElement("img");
     deleteIcon.src = "./images/icon-delete.svg";
     const deleteText = document.createElement("span");
-    deleteText.innerText = "delete";
+    deleteText.innerText = "Delete";
     // delet
     // buttons
     // content
@@ -122,9 +126,26 @@ class Comment {
     info.append(infoImg);
     info.append(infoName);
     info.append(date);
-    buttons.append(reply);
-    reply.append(replyIcon);
-    reply.append(replyText);
+    if (this.currentUser.username == this.name) {
+      console.log(currentUser);
+      // if the user is you make a you stick before the name
+      const you = document.createElement("span");
+      you.classList.add("you");
+      you.innerText = "you";
+      infoName.after(you);
+      mainComment.classList.add("your-comment");
+      // if the user is you show you edite and delete buttons
+      buttons.append(delet);
+      buttons.append(edite);
+      edite.append(editeIcon);
+      edite.append(editeText);
+      delet.append(deleteIcon);
+      delet.append(deleteText);
+    } else {
+      buttons.append(reply);
+      reply.append(replyIcon);
+      reply.append(replyText);
+    }
     commentHead.append(info);
     commentHead.append(buttons);
     textContent.append(commentHead);
@@ -165,5 +186,6 @@ let firstComment = new Comment(
   12,
   "./images/avatars/image-amyrobson.png",
   "amyrobson",
-  ""
+  "",
+  { image: "", username: "amyrobson" }
 );
