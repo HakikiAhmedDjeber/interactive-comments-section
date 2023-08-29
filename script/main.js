@@ -166,18 +166,46 @@ class Comment {
     this.comment.append(this.replySection);
     //
     //_____________________//
-    // show the element in the console
-    this.container = document.querySelector(".container");
-    this.container.append(this.comment);
-    console.log(this.comment);
+    // check if there is replys for this comment
+    if (replys.length > 0) {
+      replys.forEach((ele) => {
+        let reply = new Reply(
+          ele.id,
+          ele.content,
+          ele.createdAt,
+          ele.score,
+          ele.user.image.png,
+          ele.user.username,
+          data.currentUser,
+          ele.replyingTo,
+          this.commentReplys
+        );
+      });
+      // show the element in the console
+      this.container = document.querySelector(".container");
+      this.container.append(this.comment);
+      console.log(this.comment);
+    }
   }
 }
 // reply class
 class Reply extends Comment {
-  constructor(id, content, time, score, img, name, currentUser, replyTo) {
+  constructor(
+    id,
+    content,
+    time,
+    score,
+    img,
+    name,
+    currentUser,
+    replyTo,
+    repliesSection
+  ) {
     super(id, content, time, score, img, name, "", currentUser);
     this.replyTo = replyTo;
     this.mainComment.setAttribute("replyTo", this.replyTo);
+    this.repliesSection = repliesSection;
+    this.repliesSection.append(this.comment);
   }
 }
 // comment creation class
@@ -236,15 +264,39 @@ class CreateComment {
 
 // test create a comment
 
-let sendSection = new CreateComment(
-  1,
-  {
-    image: {
-      png: "./images/avatars/image-juliusomo.png",
-      webp: "./images/avatars/image-juliusomo.webp",
-    },
-    username: "juliusomo",
-  },
-  "Reply"
-);
-sendSection.setCreateComment(document.querySelector(".container"));
+// let sendSection = new CreateComment(
+//   1,
+//   {
+//     image: {
+//       png: "./images/avatars/image-juliusomo.png",
+//       webp: "./images/avatars/image-juliusomo.webp",
+//     },
+//     username: "juliusomo",
+//   },
+//   "Reply"
+// );
+// sendSection.setCreateComment(document.querySelector(".container"));
+
+// start the creation of comment from the data
+const data = JSON.parse(localStorage.getItem("data"));
+console.log(data.comments);
+if (data.comments.length > 0) {
+  data.comments.forEach((ele) => {
+    let comment = new Comment(
+      ele.id,
+      ele.content,
+      ele.createdAt,
+      ele.score,
+      ele.user.image.png,
+      ele.user.username,
+      ele.replies,
+      data.currentUser
+    );
+    console.log(comment);
+  });
+}
+const mainSend = new CreateComment(
+  0,
+  data.currentUser,
+  "send"
+).setCreateComment(document.querySelector(".container"));
