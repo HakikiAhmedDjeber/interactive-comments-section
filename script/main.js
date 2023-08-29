@@ -182,12 +182,12 @@ class Comment {
         );
       });
       // show the element in the console
-      this.container = document.querySelector(".container");
-      this.container.append(this.comment);
+      this.sendFiled = document.getElementById("send").parentElement;
+      this.sendFiled.before(this.comment);
       console.log(this.comment);
     } else {
-      this.container = document.querySelector(".container");
-      this.container.append(this.comment);
+      this.sendFiled = document.querySelector(".container");
+      this.sendFiled.before(this.comment);
       console.log(this.comment);
     }
   }
@@ -236,6 +236,7 @@ class CreateComment {
     this.input.setAttribute("type", "button");
     this.input.classList.add("sendBtn");
     if (this.type == "send") {
+      this.input.id = "send";
       this.input.value = "Send";
     } else {
       this.input.value = "Reply";
@@ -245,7 +246,7 @@ class CreateComment {
     console.log(this.writeElement);
   }
   setCreateComment(place) {
-    place.append(this.writeElement);
+    place.prepend(this.writeElement);
   }
 }
 // test comment
@@ -286,8 +287,18 @@ class CreateComment {
 // );
 // sendSection.setCreateComment(document.querySelector(".container"));
 
-// start the creation of comment from the data
+// access to data
 const data = JSON.parse(localStorage.getItem("data"));
+
+// create the send filed
+const mainSend = new CreateComment(
+  0,
+  data.currentUser,
+  "send"
+).setCreateComment(document.querySelector(".container"));
+
+// start the creation of comment from the data
+
 console.log(data.comments);
 if (data.comments.length > 0) {
   data.comments.forEach((ele) => {
@@ -304,8 +315,28 @@ if (data.comments.length > 0) {
     console.log(comment);
   });
 }
-const mainSend = new CreateComment(
-  0,
-  data.currentUser,
-  "send"
-).setCreateComment(document.querySelector(".container"));
+
+//_______________________________________//
+// create a new comment
+const sendBtn = document.getElementById("send");
+console.log(sendBtn);
+sendBtn.addEventListener("click", () => {
+  // get the textarea
+  const textArea = sendBtn.previousElementSibling;
+  // get the id
+  console.log(document.querySelectorAll(".comment-prototype").length + 1);
+  console.log(textArea.value != "");
+  // get the date
+  if (textArea.value != "") {
+    const newComment = new Comment(
+      document.querySelectorAll(".comment-prototype").length + 1,
+      textArea.value,
+      "now",
+      0,
+      data.currentUser.image.png,
+      data.currentUser.username,
+      "",
+      data.currentUser
+    );
+  }
+});
