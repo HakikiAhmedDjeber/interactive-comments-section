@@ -180,6 +180,37 @@ class Reply extends Comment {
     this.mainComment.setAttribute("replyTo", this.replyTo);
   }
 }
+// comment creation class
+class CreateComment {
+  constructor(id, currentUser, type) {
+    this.id = id;
+    this.currentUser = currentUser;
+    this.type = type;
+    // create the main element
+    this.writeElement = document.createElement("div");
+    this.writeElement.classList.add("write-prototype");
+    this.image = document.createElement("img");
+    this.image.src = this.currentUser.image.png;
+    this.image.classList.add("myPhoto");
+    this.textArea = document.createElement("textarea");
+    this.textArea.setAttribute("name", "send-comment");
+    this.textArea.placeholder = "Add a comment...";
+    this.input = document.createElement("input");
+    this.input.setAttribute("type", "button");
+    this.input.classList.add("sendBtn");
+    if (this.type == "send") {
+      this.input.value = "Send";
+    } else {
+      this.input.value = "Reply";
+    }
+    // start collect elements
+    this.writeElement.append(this.image, this.textArea, this.input);
+    console.log(this.writeElement);
+  }
+  setCreateComment(place) {
+    place.append(this.writeElement);
+  }
+}
 // test comment
 // let firstComment = new Comment(
 //   1,
@@ -192,13 +223,28 @@ class Reply extends Comment {
 //   { image: "", username: "amyrobson" }
 // );
 // test reply
-let firstComment = new Reply(
+// let firstComment = new Reply(
+//   1,
+//   "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
+//   "1 month ago",
+//   12,
+//   "./images/avatars/image-amyrobson.png",
+//   "amyrobson",
+//   { image: "", username: "amyrobson" },
+//   "maxblagun"
+// );
+
+// test create a comment
+
+let sendSection = new CreateComment(
   1,
-  "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
-  "1 month ago",
-  12,
-  "./images/avatars/image-amyrobson.png",
-  "amyrobson",
-  { image: "", username: "amyrobson" },
-  "maxblagun"
+  {
+    image: {
+      png: "./images/avatars/image-juliusomo.png",
+      webp: "./images/avatars/image-juliusomo.webp",
+    },
+    username: "juliusomo",
+  },
+  "Reply"
 );
+sendSection.setCreateComment(document.querySelector(".container"));
