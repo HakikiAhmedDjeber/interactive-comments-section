@@ -185,6 +185,10 @@ class Comment {
       this.container = document.querySelector(".container");
       this.container.append(this.comment);
       console.log(this.comment);
+    } else {
+      this.container = document.querySelector(".container");
+      this.container.append(this.comment);
+      console.log(this.comment);
     }
   }
 }
@@ -204,6 +208,11 @@ class Reply extends Comment {
     super(id, content, time, score, img, name, "", currentUser);
     this.replyTo = replyTo;
     this.mainComment.setAttribute("replyTo", this.replyTo);
+    // tag the name of the reply to
+    this.replyToEle = document.createElement("span");
+    this.replyToEle.innerText = this.replyTo;
+    this.replyToEle.classList.add("replyTo");
+    this.contentComment.prepend(this.replyToEle);
     this.repliesSection = repliesSection;
     this.repliesSection.append(this.comment);
   }

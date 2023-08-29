@@ -193,6 +193,7 @@ textarea:focus {
   color: var(--Moderate-blue);
   font-weight: 500;
   padding-left: 1rem;
+  padding-right: 0.5rem;
 }
 .replyTo::before {
   position: absolute;
