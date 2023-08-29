@@ -29,163 +29,176 @@ class Comment {
     this.name = name;
     this.replys = replys;
     this.currentUser = currentUser;
+    console.log("current user : ", this.currentUser);
     // create a comment
-    const comment = document.createElement("div");
-    comment.setAttribute("class", "comment");
-    const mainComment = document.createElement("div");
-    mainComment.classList.add("main-comment");
-    mainComment.classList.add("comment-prototype");
+    this.comment = document.createElement("div");
+    this.comment.setAttribute("class", "comment");
+    this.mainComment = document.createElement("div");
+    this.mainComment.classList.add("main-comment");
+    this.mainComment.classList.add("comment-prototype");
     // replys-section
-    const replySection = document.createElement("div");
-    replySection.classList.add("replys-section");
-    const replyline = document.createElement("div");
-    replyline.classList.add("reply-line");
-    const commentReplys = document.createElement("div");
-    commentReplys.classList.add("comment-replys");
+    this.replySection = document.createElement("div");
+    this.replySection.classList.add("replys-section");
+    this.replyline = document.createElement("div");
+    this.replyline.classList.add("reply-line");
+    this.commentReplys = document.createElement("div");
+    this.commentReplys.classList.add("comment-replys");
     // replys-section
     //score
-    const scoreElement = document.createElement("div");
-    scoreElement.classList.add("score");
-    const up = document.createElement("span");
-    up.classList.add("up");
-    up.innerText = "+";
-    const scoreValue = document.createElement("p");
-    scoreValue.classList.add("score-value");
-    const down = document.createElement("span");
-    down.classList.add("down");
-    down.innerText = "-";
+    this.scoreElement = document.createElement("div");
+    this.scoreElement.classList.add("score");
+    this.up = document.createElement("span");
+    this.up.classList.add("up");
+    this.up.innerText = "+";
+    this.scoreValue = document.createElement("p");
+    this.scoreValue.classList.add("score-value");
+    this.down = document.createElement("span");
+    this.down.classList.add("down");
+    this.down.innerText = "-";
     //score
     // text-content
-    const textContent = document.createElement("div");
-    textContent.classList.add("text-content");
-    const commentHead = document.createElement("div");
-    commentHead.classList.add("comment-head");
+    this.textContent = document.createElement("div");
+    this.textContent.classList.add("text-content");
+    this.commentHead = document.createElement("div");
+    this.commentHead.classList.add("comment-head");
     //info
-    const info = document.createElement("div");
-    info.classList.add("info");
-    const infoImg = document.createElement("img");
-    infoImg.classList.add("profile");
-    const infoName = document.createElement("p");
-    infoName.classList.add("name");
-    const date = document.createElement("span");
-    date.classList.add("date");
+    this.info = document.createElement("div");
+    this.info.classList.add("info");
+    this.infoImg = document.createElement("img");
+    this.infoImg.classList.add("profile");
+    this.infoName = document.createElement("p");
+    this.infoName.classList.add("name");
+    this.date = document.createElement("span");
+    this.date.classList.add("date");
     //info
     // buttons
-    const buttons = document.createElement("div");
-    buttons.classList.add("buttons");
+    this.buttons = document.createElement("div");
+    this.buttons.classList.add("buttons");
     // reply
-    const reply = document.createElement("a");
-    reply.classList.add("reply");
-    reply.classList.add("btn");
-    const replyIcon = document.createElement("img");
-    replyIcon.src = "./images/icon-reply.svg";
-    const replyText = document.createElement("span");
-    replyText.innerText = "Reply";
+    this.reply = document.createElement("a");
+    this.reply.classList.add("reply");
+    this.reply.classList.add("btn");
+    this.replyIcon = document.createElement("img");
+    this.replyIcon.src = "./images/icon-reply.svg";
+    this.replyText = document.createElement("span");
+    this.replyText.innerText = "Reply";
     // reply
     // edite
-    const edite = document.createElement("a");
-    edite.classList.add("edit");
-    edite.classList.add("btn");
-    const editeIcon = document.createElement("img");
-    editeIcon.src = "./images/icon-edit.svg";
-    const editeText = document.createElement("span");
-    editeText.innerText = "Edite";
+    this.edite = document.createElement("a");
+    this.edite.classList.add("edit");
+    this.edite.classList.add("btn");
+    this.editeIcon = document.createElement("img");
+    this.editeIcon.src = "./images/icon-edit.svg";
+    this.editeText = document.createElement("span");
+    this.editeText.innerText = "Edite";
     // edite
     // delet
-    const delet = document.createElement("a");
-    delet.classList.add("delete");
-    delet.classList.add("btn");
-    const deleteIcon = document.createElement("img");
-    deleteIcon.src = "./images/icon-delete.svg";
-    const deleteText = document.createElement("span");
-    deleteText.innerText = "Delete";
+    this.delet = document.createElement("a");
+    this.delet.classList.add("delete");
+    this.delet.classList.add("btn");
+    this.deleteIcon = document.createElement("img");
+    this.deleteIcon.src = "./images/icon-delete.svg";
+    this.deleteText = document.createElement("span");
+    this.deleteText.innerText = "Delete";
     // delet
     // buttons
     // content
-    const contentComment = document.createElement("p");
-    contentComment.classList.add("content");
+    this.contentComment = document.createElement("p");
+    this.contentComment.classList.add("content");
     // content
     // text-content
     //
     // set data to elements
     //
-    comment.id = this.id;
-    scoreValue.innerText = this.score;
-    infoImg.src = this.img;
-    infoName.innerText = this.name;
-    date.innerText = this.time;
-    contentComment.innerText = this.content;
+    this.comment.id = this.id;
+    this.scoreValue.innerText = this.score;
+    this.infoImg.src = this.img;
+    this.infoName.innerText = this.name;
+    this.date.innerText = this.time;
+    this.contentComment.innerText = this.content;
     // start set group elements
     // main-comment group //
     // score
-    scoreElement.append(up);
-    scoreElement.append(scoreValue);
-    scoreElement.append(down);
+    this.scoreElement.append(this.up);
+    this.scoreElement.append(this.scoreValue);
+    this.scoreElement.append(this.down);
     // text content
     // comment head
-    info.append(infoImg);
-    info.append(infoName);
-    info.append(date);
+    this.info.append(this.infoImg);
+    this.info.append(this.infoName);
+    this.info.append(this.date);
     if (this.currentUser.username == this.name) {
-      console.log(currentUser);
+      console.log(this.currentUser);
       // if the user is you make a you stick before the name
-      const you = document.createElement("span");
-      you.classList.add("you");
-      you.innerText = "you";
-      infoName.after(you);
-      mainComment.classList.add("your-comment");
+      this.you = document.createElement("span");
+      this.you.classList.add("you");
+      this.you.innerText = "you";
+      this.infoName.after(this.you);
+      this.mainComment.classList.add("your-comment");
       // if the user is you show you edite and delete buttons
-      buttons.append(delet);
-      buttons.append(edite);
-      edite.append(editeIcon);
-      edite.append(editeText);
-      delet.append(deleteIcon);
-      delet.append(deleteText);
+      this.buttons.append(this.delet);
+      this.buttons.append(this.edite);
+      this.edite.append(this.editeIcon);
+      this.edite.append(this.editeText);
+      this.delet.append(this.deleteIcon);
+      this.delet.append(this.deleteText);
     } else {
-      buttons.append(reply);
-      reply.append(replyIcon);
-      reply.append(replyText);
+      this.buttons.append(this.reply);
+      this.reply.append(this.replyIcon);
+      this.reply.append(this.replyText);
     }
-    commentHead.append(info);
-    commentHead.append(buttons);
-    textContent.append(commentHead);
-    textContent.append(contentComment);
+    this.commentHead.append(this.info);
+    this.commentHead.append(this.buttons);
+    this.textContent.append(this.commentHead);
+    this.textContent.append(this.contentComment);
     // set to main-comment element
-    mainComment.append(scoreElement);
-    mainComment.append(textContent);
+    this.mainComment.append(this.scoreElement);
+    this.mainComment.append(this.textContent);
     // main-comment group //
     //
     // reply section group //
     // reply line
-    replySection.append(replyline);
-    replySection.append(commentReplys);
+    this.replySection.append(this.replyline);
+    this.replySection.append(this.commentReplys);
     // reply section group //
     // set all groups in comment
-    comment.append(mainComment);
-    comment.append(replySection);
+    this.comment.append(this.mainComment);
+    this.comment.append(this.replySection);
     //
     //_____________________//
     // show the element in the console
-    const container = document.querySelector(".container");
-    container.append(comment);
-    console.log(comment);
+    this.container = document.querySelector(".container");
+    this.container.append(this.comment);
+    console.log(this.comment);
   }
 }
 // reply class
 class Reply extends Comment {
-  constructor(id, content, time, score, img, name, replyTo) {
-    super(id, content, time, score, img, name);
+  constructor(id, content, time, score, img, name, currentUser, replyTo) {
+    super(id, content, time, score, img, name, "", currentUser);
     this.replyTo = replyTo;
+    this.mainComment.setAttribute("replyTo", this.replyTo);
   }
 }
-
-let firstComment = new Comment(
+// test comment
+// let firstComment = new Comment(
+//   1,
+//   "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
+//   "1 month ago",
+//   12,
+//   "./images/avatars/image-amyrobson.png",
+//   "amyrobson",
+//   "",
+//   { image: "", username: "amyrobson" }
+// );
+// test reply
+let firstComment = new Reply(
   1,
   "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
   "1 month ago",
   12,
   "./images/avatars/image-amyrobson.png",
   "amyrobson",
-  "",
-  { image: "", username: "amyrobson" }
+  { image: "", username: "amyrobson" },
+  "maxblagun"
 );
