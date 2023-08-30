@@ -186,7 +186,7 @@ class Comment {
       this.sendFiled.before(this.comment);
       console.log(this.comment);
     } else {
-      this.sendFiled = document.querySelector(".container");
+      this.sendFiled = document.getElementById("send").parentElement;
       this.sendFiled.before(this.comment);
       console.log(this.comment);
     }
