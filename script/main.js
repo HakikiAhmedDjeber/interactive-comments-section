@@ -236,6 +236,7 @@ class CreateComment {
     this.input.setAttribute("type", "button");
     this.input.classList.add("sendBtn");
     if (this.type == "send") {
+      this.writeElement.classList.add("send-filed");
       this.input.id = "send";
       this.input.value = "Send";
     } else {
@@ -354,7 +355,6 @@ console.log(repliesBtns);
 // function to get the parent
 function getNthParent(element, n) {
   let parent = element;
-
   for (let i = 0; i < n; i++) {
     if (parent && parent.parentNode) {
       parent = parent.parentNode;
@@ -362,16 +362,19 @@ function getNthParent(element, n) {
       return null; // Parent not found
     }
   }
-
   return parent;
 }
 repliesBtns.forEach((ele) => {
   ele.addEventListener("click", () => {
+    console.log(getNthParent(ele, 4).nextElementSibling.offsetHeight);
     if (
       getNthParent(ele, 5).nextElementSibling.className !== "write-prototype"
     ) {
       new CreateComment(1, data.currentUser, "reply").setCreateComment(
-        getNthParent(ele, 5)
+        getNthParent(
+          ele,
+          getNthParent(ele, 4).nextElementSibling.offsetHeight == 0 ? 5 : 4
+        )
       );
     }
   });
