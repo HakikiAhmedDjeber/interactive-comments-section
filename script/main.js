@@ -110,7 +110,7 @@ class Comment {
     //
     // set data to elements
     //
-    this.comment.id = this.id;
+    this.comment.id = `comment${this.id}`;
     this.scoreValue.innerText = this.score;
     this.infoImg.src = this.img;
     this.infoName.innerText = this.name;
@@ -367,9 +367,12 @@ function getNthParent(element, n) {
 }
 repliesBtns.forEach((ele) => {
   ele.addEventListener("click", () => {
-    console.log(getNthParent(ele, 5));
-    new CreateComment(1, data.currentUser, "reply").setCreateComment(
-      getNthParent(ele, 5)
-    );
+    if (
+      getNthParent(ele, 5).nextElementSibling.className !== "write-prototype"
+    ) {
+      new CreateComment(1, data.currentUser, "reply").setCreateComment(
+        getNthParent(ele, 5)
+      );
+    }
   });
 });
