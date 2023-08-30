@@ -75,7 +75,7 @@ class Comment {
     this.buttons = document.createElement("div");
     this.buttons.classList.add("buttons");
     // reply
-    this.reply = document.createElement("a");
+    this.reply = document.createElement("span");
     this.reply.classList.add("reply");
     this.reply.classList.add("btn");
     this.replyIcon = document.createElement("img");
@@ -84,7 +84,7 @@ class Comment {
     this.replyText.innerText = "Reply";
     // reply
     // edite
-    this.edite = document.createElement("a");
+    this.edite = document.createElement("span");
     this.edite.classList.add("edit");
     this.edite.classList.add("btn");
     this.editeIcon = document.createElement("img");
@@ -93,7 +93,7 @@ class Comment {
     this.editeText.innerText = "Edite";
     // edite
     // delet
-    this.delet = document.createElement("a");
+    this.delet = document.createElement("span");
     this.delet.classList.add("delete");
     this.delet.classList.add("btn");
     this.deleteIcon = document.createElement("img");
@@ -246,7 +246,13 @@ class CreateComment {
     console.log(this.writeElement);
   }
   setCreateComment(place) {
-    place.prepend(this.writeElement);
+    if (this.input.id == "send") {
+      place.prepend(this.writeElement);
+      console.log("I am the main send filed");
+    } else {
+      place.after(this.writeElement);
+      console.log("I am just a reply");
+    }
   }
 }
 // test comment
@@ -328,7 +334,7 @@ sendBtn.addEventListener("click", () => {
   console.log(textArea.value != "");
   // get the date
   if (textArea.value != "") {
-    const newComment = new Comment(
+    new Comment(
       document.querySelectorAll(".comment-prototype").length + 1,
       textArea.value,
       "now",
@@ -338,5 +344,32 @@ sendBtn.addEventListener("click", () => {
       "",
       data.currentUser
     );
+    textArea.value = "";
   }
+});
+//_______________________________________//
+// create a new reply
+const repliesBtns = document.querySelectorAll(".reply");
+console.log(repliesBtns);
+// function to get the parent
+function getNthParent(element, n) {
+  let parent = element;
+
+  for (let i = 0; i < n; i++) {
+    if (parent && parent.parentNode) {
+      parent = parent.parentNode;
+    } else {
+      return null; // Parent not found
+    }
+  }
+
+  return parent;
+}
+repliesBtns.forEach((ele) => {
+  ele.addEventListener("click", () => {
+    console.log(getNthParent(ele, 5));
+    new CreateComment(1, data.currentUser, "reply").setCreateComment(
+      getNthParent(ele, 5)
+    );
+  });
 });

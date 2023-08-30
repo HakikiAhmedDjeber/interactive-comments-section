@@ -126,6 +126,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   gap: 2px;
+  cursor: pointer;
 }
 .btn span {
   font-size: 1.4rem;
