@@ -407,6 +407,19 @@ function sendReply() {
       console.log(textArea.value != "");
       // get the reply to
       const replyTo = ele.parentElement.getAttribute("replyto");
+      // check if the replyto is a comment or a reply
+      let place;
+      if (
+        document.querySelector(`#${replyTo}`).parentElement.className ==
+        "comment-replys"
+      ) {
+        place = document.querySelector(`#${replyTo}`).parentElement;
+      } else if (
+        document.querySelector(`#${replyTo}`).parentElement.className ==
+        "container"
+      ) {
+        place = document.querySelector(`#${replyTo} .comment-replys`);
+      }
       console.log(replyTo);
       if (textArea.value != "") {
         new Reply(
@@ -417,8 +430,8 @@ function sendReply() {
           data.currentUser.image.png,
           data.currentUser.username,
           data.currentUser,
-          "khayi",
-          document.querySelector(`#${replyTo} .comment-replys`)
+          document.querySelector(`#${replyTo} .name`).innerText,
+          place
         );
         textArea.value = "";
       }
