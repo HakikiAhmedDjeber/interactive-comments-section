@@ -445,32 +445,44 @@ function sendReply() {
 }
 //_____________________//
 // score functions
-function scoreFun() {
-  const upScore = document.querySelectorAll(".up");
-  const downScore = document.querySelectorAll(".down");
-  upScore.forEach((ele) => {
-    // get the inital score value
-    const intialValue = ele.parentElement.getAttribute("value");
-    // check if this is not your comment (you can't rate your comment)
-    if (!ele.closest(".comment-prototype").className.includes("your-comment")) {
-      ele.addEventListener("click", () => {
+const upScore = document.querySelectorAll(".up");
+const downScore = document.querySelectorAll(".down");
+upScore.forEach((ele) => {
+  // get the inital score value
+  const intialValue = ele.parentElement.getAttribute("value");
+  // check if this is not your comment (you can't rate your comment)
+  if (!ele.closest(".comment-prototype").className.includes("your-comment")) {
+    ele.addEventListener("click", () => {
+      if (ele.nextElementSibling.innerText <= intialValue) {
         ele.classList.add("clicked");
         ele.nextElementSibling.classList.add("clicked");
-        ele.nextElementSibling.innerText = +intialValue + 1;
-      });
-    }
-  });
-  downScore.forEach((ele) => {
-    // get the inital score value
-    const intialValue = ele.parentElement.getAttribute("value");
-    // check if this is not your comment (you can't rate your comment)
-    if (!ele.closest(".comment-prototype").className.includes("your-comment")) {
-      ele.addEventListener("click", () => {
+        ele.nextElementSibling.innerText =
+          +ele.nextElementSibling.innerText + 1;
+        // remove the style from down icon
+        ele.parentElement.lastElementChild.classList.remove("clicked");
+        // remove the style of all icons if the value is inital
+        if (ele.nextElementSibling.innerText == intialValue)
+          ele.classList.remove("clicked");
+      }
+    });
+  }
+});
+downScore.forEach((ele) => {
+  // get the inital score value
+  const intialValue = ele.parentElement.getAttribute("value");
+  // check if this is not your comment (you can't rate your comment)
+  if (!ele.closest(".comment-prototype").className.includes("your-comment")) {
+    ele.addEventListener("click", () => {
+      if (ele.previousElementSibling.innerText >= intialValue) {
         ele.classList.add("clicked");
         ele.previousElementSibling.classList.add("clicked");
-        ele.previousElementSibling.innerText = +intialValue - 1;
-      });
-    }
-  });
-}
-scoreFun();
+        ele.previousElementSibling.innerText -= 1;
+        // remove the style from up icon
+        ele.parentElement.firstElementChild.classList.remove("clicked");
+        // remove the style of all icons if the value is inital
+        if (ele.previousElementSibling.innerText == intialValue)
+          ele.classList.remove("clicked");
+      }
+    });
+  }
+});
