@@ -212,8 +212,9 @@ textarea:focus {
 }
 .write-prototype .myPhoto {
   width: 3rem;
+  margin-top: 0.5rem;
 }
-.write-prototype textarea {
+textarea {
   width: 100%;
   height: 8rem;
   font-size: 1.5rem;
@@ -221,8 +222,9 @@ textarea:focus {
   resize: none;
   border-radius: 5px;
   border-color: var(--Moderate-blue);
+  margin-top: 0.5rem;
 }
-.write-prototype .sendBtn {
+.sendBtn {
   text-transform: uppercase;
   border-radius: 5px;
   font-size: 1.4rem;
@@ -231,6 +233,8 @@ textarea:focus {
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+  margin-top: 0.5rem;
+  float: right;
 }
 @media (max-width: 375px) {
   .write-prototype {
@@ -238,7 +242,7 @@ textarea:focus {
     justify-content: space-between;
     align-items: center;
   }
-  .write-prototype textarea {
+  textarea {
     font-size: 1.2rem;
     order: -1;
   }

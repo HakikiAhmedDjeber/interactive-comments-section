@@ -486,3 +486,40 @@ downScore.forEach((ele) => {
     });
   }
 });
+
+//__________________//
+// edite my own comment
+function editeComment() {
+  const editeBtns = document.querySelectorAll(".edit");
+  editeBtns.forEach((ele) => {
+    ele.addEventListener("click", () => {
+      const commetContent = ele
+        .closest(".text-content")
+        .querySelector(".content");
+      console.log(commetContent.nodeName);
+      const replyTo = commetContent.querySelector(".replyTo");
+      const replyToRm = replyTo.cloneNode(true);
+      replyTo.remove();
+      const changeableTxt = document.createElement("textarea");
+      changeableTxt.value = commetContent.textContent;
+      commetContent.replaceWith(changeableTxt);
+      // create an update button
+      const updateBtn = document.createElement("input");
+      updateBtn.classList.add("sendBtn");
+      updateBtn.value = "UPDATE";
+      updateBtn.setAttribute("type", "button");
+      changeableTxt.after(updateBtn);
+      // click update
+      updateBtn.addEventListener("click", () => {
+        const content = document.createElement("p");
+        content.textContent = changeableTxt.value;
+        // set the reply span
+        content.prepend(replyToRm);
+        content.classList.add("content");
+        changeableTxt.replaceWith(content);
+        updateBtn.remove();
+      });
+    });
+  });
+}
+editeComment();
