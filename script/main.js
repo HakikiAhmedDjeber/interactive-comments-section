@@ -112,6 +112,7 @@ class Comment {
     //
     this.comment.id = `comment${this.id}`;
     this.scoreValue.innerText = this.score;
+    this.scoreElement.setAttribute("value", this.score);
     this.infoImg.src = this.img;
     this.infoName.innerText = this.name;
     this.date.innerText = this.time;
@@ -190,6 +191,8 @@ class Comment {
       this.sendFiled.before(this.comment);
       console.log(this.comment);
     }
+    // set score function
+    // scoreFun();
   }
 }
 // reply class
@@ -440,3 +443,34 @@ function sendReply() {
     });
   });
 }
+//_____________________//
+// score functions
+function scoreFun() {
+  const upScore = document.querySelectorAll(".up");
+  const downScore = document.querySelectorAll(".down");
+  upScore.forEach((ele) => {
+    // get the inital score value
+    const intialValue = ele.parentElement.getAttribute("value");
+    // check if this is not your comment (you can't rate your comment)
+    if (!ele.closest(".comment-prototype").className.includes("your-comment")) {
+      ele.addEventListener("click", () => {
+        ele.classList.add("clicked");
+        ele.nextElementSibling.classList.add("clicked");
+        ele.nextElementSibling.innerText = +intialValue + 1;
+      });
+    }
+  });
+  downScore.forEach((ele) => {
+    // get the inital score value
+    const intialValue = ele.parentElement.getAttribute("value");
+    // check if this is not your comment (you can't rate your comment)
+    if (!ele.closest(".comment-prototype").className.includes("your-comment")) {
+      ele.addEventListener("click", () => {
+        ele.classList.add("clicked");
+        ele.previousElementSibling.classList.add("clicked");
+        ele.previousElementSibling.innerText = +intialValue - 1;
+      });
+    }
+  });
+}
+scoreFun();

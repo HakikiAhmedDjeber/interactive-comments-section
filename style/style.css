@@ -97,6 +97,9 @@ textarea:focus {
 }
 .score .score-value {
 }
+.score .clicked {
+  color: var(--Moderate-blue);
+}
 .comment-prototype .text-content {
   width: 100%;
 }
