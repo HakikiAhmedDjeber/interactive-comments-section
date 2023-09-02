@@ -191,8 +191,8 @@ class Comment {
       this.sendFiled.before(this.comment);
       console.log(this.comment);
     }
-    // set score function
-    // scoreFun();
+    // refrech the edite btns
+    editeComment();
   }
 }
 // reply class
@@ -498,8 +498,11 @@ function editeComment() {
         .querySelector(".content");
       console.log(commetContent.nodeName);
       const replyTo = commetContent.querySelector(".replyTo");
-      const replyToRm = replyTo.cloneNode(true);
-      replyTo.remove();
+      let replyToRm;
+      if (replyTo) {
+        replyToRm = replyTo.cloneNode(true);
+        replyTo.remove();
+      }
       const changeableTxt = document.createElement("textarea");
       changeableTxt.value = commetContent.textContent;
       commetContent.replaceWith(changeableTxt);
@@ -514,7 +517,7 @@ function editeComment() {
         const content = document.createElement("p");
         content.textContent = changeableTxt.value;
         // set the reply span
-        content.prepend(replyToRm);
+        if (replyToRm) content.prepend(replyToRm);
         content.classList.add("content");
         changeableTxt.replaceWith(content);
         updateBtn.remove();
