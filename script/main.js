@@ -434,6 +434,8 @@ function sendReply() {
           place
         );
         textArea.value = "";
+        // hide the comment filed after send the reply
+        ele.parentElement.remove();
       }
     });
   });
