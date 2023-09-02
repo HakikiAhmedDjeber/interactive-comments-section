@@ -169,7 +169,7 @@ class Comment {
     // check if there is replys for this comment
     if (replys.length > 0) {
       replys.forEach((ele) => {
-        let reply = new Reply(
+        new Reply(
           ele.id,
           ele.content,
           ele.createdAt,
@@ -214,12 +214,13 @@ class Reply extends Comment {
     this.replyToEle.classList.add("replyTo");
     this.contentComment.prepend(this.replyToEle);
     this.repliesSection = repliesSection;
+    console.log(this.repliesSection);
     this.repliesSection.append(this.comment);
   }
 }
 // comment creation class
 class CreateComment {
-  constructor(id, currentUser, type) {
+  constructor(id, currentUser, type, replyTo) {
     this.id = id;
     this.currentUser = currentUser;
     this.type = type;
@@ -240,6 +241,7 @@ class CreateComment {
       this.input.id = "send";
       this.input.value = "Send";
     } else {
+      this.writeElement.setAttribute("replyto", replyTo);
       this.input.value = "Reply";
     }
     // start collect elements
@@ -301,7 +303,8 @@ const data = JSON.parse(localStorage.getItem("data"));
 const mainSend = new CreateComment(
   0,
   data.currentUser,
-  "send"
+  "send",
+  ""
 ).setCreateComment(document.querySelector(".container"));
 
 // start the creation of comment from the data
@@ -366,16 +369,59 @@ function getNthParent(element, n) {
 }
 repliesBtns.forEach((ele) => {
   ele.addEventListener("click", () => {
-    console.log(getNthParent(ele, 4).nextElementSibling.offsetHeight);
+    // after any creation of reply fileds we need to refrech the btns
+    // of send to be able to create new comment
+    replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
+    console.log(replyBtns);
     if (
       getNthParent(ele, 5).nextElementSibling.className !== "write-prototype"
     ) {
-      new CreateComment(1, data.currentUser, "reply").setCreateComment(
+      new CreateComment(
+        1,
+        data.currentUser,
+        "reply",
+        ele.closest(".comment").id
+      ).setCreateComment(
         getNthParent(
           ele,
           getNthParent(ele, 4).nextElementSibling.offsetHeight == 0 ? 5 : 4
         )
       );
+      // after any creation of reply fileds we need to refrech the btns
+      // of send to be able to create new comment
+      replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
+      console.log(replyBtns);
+      sendReply();
     }
   });
 });
+// creat a new reply
+let replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
+function sendReply() {
+  replyBtns.forEach((ele) => {
+    ele.addEventListener("click", () => {
+      // get the textarea
+      const textArea = ele.previousElementSibling;
+      // get the id
+      console.log(document.querySelectorAll(".comment-prototype").length + 1);
+      console.log(textArea.value != "");
+      // get the reply to
+      const replyTo = ele.parentElement.getAttribute("replyto");
+      console.log(replyTo);
+      if (textArea.value != "") {
+        new Reply(
+          document.querySelectorAll(".comment-prototype").length + 1,
+          textArea.value,
+          "now",
+          0,
+          data.currentUser.image.png,
+          data.currentUser.username,
+          data.currentUser,
+          "khayi",
+          document.querySelector(`#${replyTo} .comment-replys`)
+        );
+        textArea.value = "";
+      }
+    });
+  });
+}
