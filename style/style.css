@@ -248,5 +248,51 @@ textarea {
   }
 }
 /* end write elements */
-
+/* start confirmation element */
+.confirmation {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #eaecf17d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.confirmation .card {
+  background-color: white;
+  padding: 2rem;
+  width: 30rem;
+  border-radius: 0.5rem;
+}
+.confirmation .title {
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: var(--Dark-blue);
+}
+.confirmation .content {
+  margin: 2rem 0;
+  line-height: 1.2;
+  font-size: 1.4rem;
+  color: var(--Grayish-Blue);
+}
+.confirmation .btn {
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.confirmation .no {
+  background-color: var(--Grayish-Blue);
+}
+.confirmation .yes {
+  background-color: var(--Soft-Red);
+  float: right;
+}
+/* end confirmation element */
 /* end components */
