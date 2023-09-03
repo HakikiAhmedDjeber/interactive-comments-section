@@ -193,6 +193,8 @@ class Comment {
     }
     // refrech the edite btns
     editeComment();
+    // refrech the delete btns
+    deleteComment();
   }
 }
 // reply class
@@ -526,3 +528,13 @@ function editeComment() {
   });
 }
 editeComment();
+// delete my own comment
+function deleteComment() {
+  const deleteBtns = document.querySelectorAll(".delete");
+  deleteBtns.forEach((ele) => {
+    ele.addEventListener("click", () => {
+      ele.closest(".comment").remove();
+    });
+  });
+}
+deleteComment();
