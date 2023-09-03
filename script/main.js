@@ -490,6 +490,46 @@ downScore.forEach((ele) => {
 });
 
 //__________________//
+// confirmation popup
+class Confirmation {
+  constructor(node) {
+    // elements creation
+    this.confirmation = document.createElement("div");
+    this.confirmation.classList.add("confirmation");
+    this.card = document.createElement("div");
+    this.card.classList.add("card");
+    this.title = document.createElement("h2");
+    this.title.classList.add("title");
+    this.content = document.createElement("p");
+    this.content.classList.add("content");
+    this.noBtn = document.createElement("button");
+    this.yesBtn = document.createElement("button");
+    this.noBtn.classList.add("btn", "no");
+    this.yesBtn.classList.add("btn", "yes");
+    // set content
+    this.title.innerText = "Delete comment";
+    this.content.innerText =
+      "Are you sure you want to delete this comment? This will remove the comment and can't be undone.";
+    this.noBtn.innerText = "NO, Cancel";
+    this.yesBtn.innerText = "YES, Delete";
+    // create the element
+    this.card.append(this.title, this.content, this.noBtn, this.yesBtn);
+    this.confirmation.append(this.card);
+    // set at body
+    document.body.append(this.confirmation);
+    // check
+    this.noBtn.addEventListener("click", () => {
+      this.confirmation.remove();
+    });
+    this.yesBtn.addEventListener("click", () => {
+      node.remove();
+      this.confirmation.remove();
+    });
+    console.log("from popup");
+  }
+}
+
+//__________________//
 // edite my own comment
 function editeComment() {
   const editeBtns = document.querySelectorAll(".edit");
@@ -533,7 +573,7 @@ function deleteComment() {
   const deleteBtns = document.querySelectorAll(".delete");
   deleteBtns.forEach((ele) => {
     ele.addEventListener("click", () => {
-      ele.closest(".comment").remove();
+      new Confirmation(ele.closest(".comment"));
     });
   });
 }
