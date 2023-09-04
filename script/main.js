@@ -129,6 +129,8 @@ class Comment {
     this.info.append(this.infoName);
     this.info.append(this.date);
     if (this.currentUser.username == this.name) {
+      // refrech the delete btns
+      deleteComment();
       console.log(this.currentUser);
       // if the user is you make a you stick before the name
       this.you = document.createElement("span");
@@ -193,8 +195,6 @@ class Comment {
     }
     // refrech the edite btns
     editeComment();
-    // refrech the delete btns
-    deleteComment();
   }
 }
 // reply class
