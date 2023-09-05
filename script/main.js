@@ -129,8 +129,6 @@ class Comment {
     this.info.append(this.infoName);
     this.info.append(this.date);
     if (this.currentUser.username == this.name) {
-      // refrech the delete btns
-      deleteComment();
       console.log(this.currentUser);
       // if the user is you make a you stick before the name
       this.you = document.createElement("span");
@@ -195,6 +193,7 @@ class Comment {
     }
     // refrech the edite btns
     editeComment();
+    if (this.currentUser.username == this.name) deleteComment();
   }
 }
 // reply class
@@ -378,7 +377,25 @@ repliesBtns.forEach((ele) => {
     // of send to be able to create new comment
     replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
     console.log(replyBtns);
-    if (
+    console.log(getNthParent(ele, 5));
+    if (!getNthParent(ele, 5).nextElementSibling) {
+      new CreateComment(
+        1,
+        data.currentUser,
+        "reply",
+        ele.closest(".comment").id
+      ).setCreateComment(
+        getNthParent(
+          ele,
+          getNthParent(ele, 4).nextElementSibling.offsetHeight == 0 ? 5 : 4
+        )
+      );
+      // after any creation of reply fileds we need to refrech the btns
+      // of send to be able to create new comment
+      replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
+      console.log(replyBtns);
+      sendReply();
+    } else if (
       getNthParent(ele, 5).nextElementSibling.className !== "write-prototype"
     ) {
       new CreateComment(
@@ -570,11 +587,12 @@ function editeComment() {
 editeComment();
 // delete my own comment
 function deleteComment() {
+  console.log("delete");
   const deleteBtns = document.querySelectorAll(".delete");
+  console.log(deleteBtns);
   deleteBtns.forEach((ele) => {
     ele.addEventListener("click", () => {
       new Confirmation(ele.closest(".comment"));
     });
   });
 }
-deleteComment();
