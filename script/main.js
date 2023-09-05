@@ -378,26 +378,30 @@ repliesBtns.forEach((ele) => {
     replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
     console.log(replyBtns);
     console.log(getNthParent(ele, 5));
-    if (!getNthParent(ele, 5).nextElementSibling) {
-      new CreateComment(
-        1,
-        data.currentUser,
-        "reply",
-        ele.closest(".comment").id
-      ).setCreateComment(
-        getNthParent(
-          ele,
-          getNthParent(ele, 4).nextElementSibling.offsetHeight == 0 ? 5 : 4
-        )
-      );
-      // after any creation of reply fileds we need to refrech the btns
-      // of send to be able to create new comment
-      replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
-      console.log(replyBtns);
-      sendReply();
-    } else if (
-      getNthParent(ele, 5).nextElementSibling.className !== "write-prototype"
-    ) {
+    if (getNthParent(ele, 5).nextElementSibling) {
+      if (
+        getNthParent(ele, 5).nextElementSibling.className !==
+          "write-prototype" &&
+        getNthParent(ele, 4).nextElementSibling.className !== "write-prototype"
+      ) {
+        new CreateComment(
+          1,
+          data.currentUser,
+          "reply",
+          ele.closest(".comment").id
+        ).setCreateComment(
+          getNthParent(
+            ele,
+            getNthParent(ele, 4).nextElementSibling.offsetHeight == 0 ? 5 : 4
+          )
+        );
+        // after any creation of reply fileds we need to refrech the btns
+        // of send to be able to create new comment
+        replyBtns = document.querySelectorAll(".sendBtn:not(#send)");
+        console.log(replyBtns);
+        sendReply();
+      }
+    } else {
       new CreateComment(
         1,
         data.currentUser,
