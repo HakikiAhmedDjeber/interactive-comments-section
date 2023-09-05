@@ -193,7 +193,7 @@ class Comment {
     }
     // refrech the edite btns
     editeComment();
-    if (this.currentUser.username == this.name) deleteComment();
+    if (this.currentUser.username == this.name) deleteComment(this.comment);
   }
 }
 // reply class
@@ -586,13 +586,11 @@ function editeComment() {
 }
 editeComment();
 // delete my own comment
-function deleteComment() {
+function deleteComment(comment) {
   console.log("delete");
-  const deleteBtns = document.querySelectorAll(".delete");
-  console.log(deleteBtns);
-  deleteBtns.forEach((ele) => {
-    ele.addEventListener("click", () => {
-      new Confirmation(ele.closest(".comment"));
-    });
+  const deleteBtn = comment.querySelector(".delete");
+  console.log(deleteBtn);
+  deleteBtn.addEventListener("click", () => {
+    new Confirmation(comment);
   });
 }
