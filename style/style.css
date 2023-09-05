@@ -131,6 +131,7 @@ textarea:focus {
   align-items: center;
   gap: 2px;
   cursor: pointer;
+  transition: 0.2s;
 }
 .btn span {
   font-size: 1.4rem;
@@ -223,6 +224,10 @@ textarea {
   border-radius: 5px;
   border-color: var(--Moderate-blue);
   margin-top: 0.5rem;
+  transition: 0s;
+}
+textarea:focus {
+  border-width: 1.4px;
 }
 .sendBtn {
   text-transform: uppercase;
@@ -235,6 +240,11 @@ textarea {
   cursor: pointer;
   margin-top: 0.5rem;
   float: right;
+  transition: 0.2s;
+}
+.sendBtn:hover,
+.buttons .btn:hover {
+  opacity: 0.7;
 }
 @media (max-width: 375px) {
   .write-prototype {
