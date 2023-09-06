@@ -223,24 +223,10 @@ class Reply extends Comment {
     console.log(this.repliesSection);
     this.repliesSection.append(this.comment);
     if (newReply) {
-      // get the target id
-      const mainComId = this.repliesSection.closest(".comment").id;
-      let targetId;
-      // get all last numbers from id
-      for (let i = -1; i < mainComId.length; i--) {
-        if (+mainComId.slice(i)) {
-          targetId = +mainComId.slice(i);
-        } else {
-          break;
-        }
-      }
-      //let targetId = ele.closest(".comment").id.match(/\d+$/);
-      console.log(targetId);
       // set the reply on the local storage
       let dataComment = JSON.parse(localStorage.getItem("data"));
-      console.log(dataComment.comments.find((obj) => obj.id === +targetId));
       dataComment.comments
-        .find((obj) => obj.id === targetId)
+        .find((obj) => obj.id === getCommentId(this.repliesSection))
         .replies.push({
           id: document.querySelectorAll(".comment-prototype").length + 1,
           content: content,
@@ -652,4 +638,19 @@ function deleteComment(comment) {
   deleteBtn.addEventListener("click", () => {
     new Confirmation(comment);
   });
+}
+// get the id of the comment
+function getCommentId(ele) {
+  // get the target id
+  const mainComId = ele.closest(".comment").id;
+  let targetId;
+  // get all last numbers from id
+  for (let i = -1; i < mainComId.length; i--) {
+    if (+mainComId.slice(i)) {
+      targetId = +mainComId.slice(i);
+    } else {
+      break;
+    }
+  }
+  return targetId;
 }
