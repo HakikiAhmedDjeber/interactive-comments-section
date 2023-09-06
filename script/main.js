@@ -352,6 +352,23 @@ sendBtn.addEventListener("click", () => {
       "",
       data.currentUser
     );
+    // set the comment on the local storage
+    let dataComment = JSON.parse(localStorage.getItem("data"));
+    dataComment.comments.push({
+      id: document.querySelectorAll(".comment-prototype").length + 1,
+      content: textArea.value,
+      createdAt: "now",
+      score: 0,
+      user: {
+        image: {
+          png: dataComment.currentUser.image.png,
+          webp: dataComment.currentUser.image.webp,
+        },
+        username: dataComment.currentUser.username,
+      },
+      replies: [],
+    });
+    localStorage.setItem("data", JSON.stringify(dataComment));
     textArea.value = "";
   }
 });
