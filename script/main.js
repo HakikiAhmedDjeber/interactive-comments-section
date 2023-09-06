@@ -11,6 +11,7 @@ async function getData() {
         data = JSON.stringify(data);
         localStorage.setItem("data", data);
       });
+    location.reload();
   }
   // get the data from localstroge and transfrom it into object
   let data = JSON.parse(localStorage.getItem("data"));
@@ -207,7 +208,8 @@ class Reply extends Comment {
     name,
     currentUser,
     replyTo,
-    repliesSection
+    repliesSection,
+    newReply = false
   ) {
     super(id, content, time, score, img, name, "", currentUser);
     this.replyTo = replyTo;
@@ -220,6 +222,41 @@ class Reply extends Comment {
     this.repliesSection = repliesSection;
     console.log(this.repliesSection);
     this.repliesSection.append(this.comment);
+    if (newReply) {
+      // get the target id
+      const mainComId = this.repliesSection.closest(".comment").id;
+      let targetId;
+      // get all last numbers from id
+      for (let i = -1; i < mainComId.length; i--) {
+        if (+mainComId.slice(i)) {
+          targetId = +mainComId.slice(i);
+        } else {
+          break;
+        }
+      }
+      //let targetId = ele.closest(".comment").id.match(/\d+$/);
+      console.log(targetId);
+      // set the reply on the local storage
+      let dataComment = JSON.parse(localStorage.getItem("data"));
+      console.log(dataComment.comments.find((obj) => obj.id === +targetId));
+      dataComment.comments
+        .find((obj) => obj.id === targetId)
+        .replies.push({
+          id: document.querySelectorAll(".comment-prototype").length + 1,
+          content: content,
+          createdAt: "now",
+          score: 0,
+          replyingTo: this.replyTo,
+          user: {
+            image: {
+              png: dataComment.currentUser.image.png,
+              webp: dataComment.currentUser.image.webp,
+            },
+            username: dataComment.currentUser.username,
+          },
+        });
+      localStorage.setItem("data", JSON.stringify(dataComment));
+    }
   }
 }
 // comment creation class
@@ -474,7 +511,8 @@ function sendReply() {
           data.currentUser.username,
           data.currentUser,
           document.querySelector(`#${replyTo} .name`).innerText,
-          place
+          place,
+          true
         );
         textArea.value = "";
         // hide the comment filed after send the reply
